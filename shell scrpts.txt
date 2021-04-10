@@ -1,0 +1,81 @@
+To make a simple script for it will run one time per day and script to make a tar file from multiple files in current directory:
+
+#!/bin/bash
+
+cat /root/servers.list |  while read output
+do
+   "$output" > /dev/null
+tar -cvf xyz.tar cat /home/ *
+
+exit
+
+#########################################################################################################################
+
+#!/bin/bash
+
+cat /root/ * |  while read output
+do
+    "$output" > /dev/null
+    if 
+    echo " cat /root/ "
+    else
+    echo " tar -xvf xyz.tar "
+    continue
+    fi
+done >> /npj
+########################################################################################################################
+
+In current directory to make multiple fiels to a single tar file and it saves as per date:
+#!/bin/bash
+
+tar -cvf my_files.tar * > date
+
+exit
+
+########################################################################################################################
+To make script every 5mings top10 ps cosuming a ram:
+
+#/bin/bash
+
+top -b -o +%MEM %CPU| head -n 10 > filename.txt
+ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%mem | head > filename.txt
+
+exit
+
+########################################################################################################################
+Shell script for to check the disk space:
+
+
+=>Find disk space using df
+df - H
+=> Filter out filesystem and find out the percentage of space using grep
+$ df -H | grep -vE '^Filesystem|tmpfs|cdrom' | awk '{ print $5 " " $1 }'
+=> Write a shell script
+
+
+#!/bin/sh
+cat /root/servers.list|df -H | grep -vE '^Filesystem|tmpfs|cdrom' | awk '{ print $5 " " $1 }' | while read output;
+do
+  echo $output
+  usep=$(echo $output | awk '{ print $1}' | cut -d'%' -f1  )
+  partition=$(echo $output | awk '{ print $2 }' )
+  if [ $usep -ge 90 ]; then
+    echo "Running out of space \"$partition ($usep%)\" on $(hostname) as on $(date)" |
+     mail -s "Alert: Almost out of disk space $usep%" you@somewhere.com
+  fi
+done
+##########################################################################################################################
+
+Make script to check the servers are up or down and to make a files as per date:
+cat /root/servers.list |  while read output
+do
+    ping c1 "$output" > /dev/null
+    if [ $? -eq 0 ]; then
+    echo "server $output is down"
+    else
+    echo "server $output is up"
+    continue
+    fi
+done >> /root/npj/date
+
+#################################################################################################################################
