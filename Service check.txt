@@ -1,0 +1,25 @@
+Make script for to check if ps is stop the it shows status "service is stopped ".
+#!/bin/bash 
+pidof notification >/dev/null && echo " " || echo "Service stopped"
+exit 
+
+#####################################################################################################################
+Make a shell script if redis server is stop or crashed the restart the service:
+
+#Scripts to start services if not running:
+
+ps -ef | grep redis |grep -v grep > /dev/null
+if [ $? != 0 ]
+then
+       /etc/init.d/redis start > /dev/null
+fi
+
+########################################################################################################################
+Running set the cron to enter the date op/min:
+#!/usr/bin/python
+date >> 
+#crontab -e
+*/10 13 15 09 02    /opt/nn/npj.sh
+exit
+
+########################################################################################################################
